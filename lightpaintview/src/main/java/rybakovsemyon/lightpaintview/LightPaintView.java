@@ -183,6 +183,12 @@ public class LightPaintView extends View {
         }
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {

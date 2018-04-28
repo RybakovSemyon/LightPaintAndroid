@@ -18,7 +18,7 @@
             android:padding="8dp">
 
             <LinearLayout
-                android:id="@+id/paint_panel_buttons_container"
+                android:id="@+id/paint_panel_cl_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toStartOf="@+id/paint_panel_rg"
@@ -65,23 +65,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:background="@android:color/white"
                 android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="@+id/paint_panel_buttons_container"
-                app:layout_constraintBottom_toBottomOf="@+id/paint_panel_buttons_container"
+                app:layout_constraintTop_toTopOf="@+id/paint_panel_cl_buttons"
+                app:layout_constraintBottom_toBottomOf="@+id/paint_panel_cl_buttons"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@+id/paint_panel_buttons_container">
+                app:layout_constraintStart_toEndOf="@+id/paint_panel_cl_buttons">
 
 
                 <RadioButton
-                    android:id="@+id/paint_panel_paint_item_pen"
+                    android:id="@+id/paint_panel_rbtn_pen"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="4dp"
                     android:background="@drawable/selector_rbtn_pen"
                     android:button="@android:color/transparent"
-                    android:checked="true"/>
+                    android:checked="true" />
 
                 <RadioButton
-                    android:id="@+id/paint_panel_paint_item_eraser"
+                    android:id="@+id/paint_panel_rbtn_eraser"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="4dp"
@@ -89,7 +89,7 @@
                     android:button="@android:color/transparent" />
 
                 <RadioButton
-                    android:id="@+id/paint_panel_paint_item_line"
+                    android:id="@+id/paint_panel_rbtn_line"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="4dp"
@@ -97,7 +97,7 @@
                     android:button="@android:color/transparent" />
 
                 <RadioButton
-                    android:id="@+id/paint_panel_paint_item_oval"
+                    android:id="@+id/paint_panel_rbtn_oval"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="4dp"
@@ -105,7 +105,7 @@
                     android:button="@android:color/transparent" />
 
                 <RadioButton
-                    android:id="@+id/paint_panel_paint_item_rectangle"
+                    android:id="@+id/paint_panel_rbtn_rectangle"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="4dp"
@@ -147,7 +147,7 @@
 
 
         <LinearLayout
-            android:id="@+id/paint_panel_grid"
+            android:id="@+id/paint_panel_ll_seeks"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -164,25 +164,25 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/paint_panel_r"
+                    android:id="@+id/paint_panel_text_red"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="17sp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_r"
+                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_red"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <SeekBar
-                    android:id="@+id/paint_panel_seek_r"
+                    android:id="@+id/paint_panel_seek_red"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:max="255"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/paint_panel_r" />
+                    app:layout_constraintStart_toEndOf="@+id/paint_panel_text_red" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -192,24 +192,24 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/paint_panel_g"
+                    android:id="@+id/paint_panel_text_green"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="17sp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_g"
+                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_green"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <SeekBar
-                    android:id="@+id/paint_panel_seek_g"
+                    android:id="@+id/paint_panel_seek_green"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/paint_panel_g"
+                    app:layout_constraintStart_toEndOf="@+id/paint_panel_text_green"
                     android:max="255"/>
                 
             </android.support.constraint.ConstraintLayout>
@@ -219,24 +219,24 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/paint_panel_b"
+                    android:id="@+id/paint_panel_text_blue"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="17sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_b"
+                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_blue"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <SeekBar
-                    android:id="@+id/paint_panel_seek_b"
+                    android:id="@+id/paint_panel_seek_blue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/paint_panel_b"
+                    app:layout_constraintStart_toEndOf="@+id/paint_panel_text_blue"
                     android:max="255"/>
                 
             </android.support.constraint.ConstraintLayout>
@@ -246,24 +246,24 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/paint_panel_a"
+                    android:id="@+id/paint_panel_text_alpha"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="17sp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_a"
+                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_alpha"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <SeekBar
-                    android:id="@+id/paint_panel_seek_a"
+                    android:id="@+id/paint_panel_seek_alpha"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/paint_panel_a"
+                    app:layout_constraintStart_toEndOf="@+id/paint_panel_text_alpha"
                     android:max="255"/>
                 
             </android.support.constraint.ConstraintLayout>
@@ -275,9 +275,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintTop_toTopOf="@+id/paint_panel_grid"
-            app:layout_constraintBottom_toBottomOf="@+id/paint_panel_grid"
-            app:layout_constraintLeft_toRightOf="@+id/paint_panel_grid"
+            app:layout_constraintTop_toTopOf="@+id/paint_panel_ll_seeks"
+            app:layout_constraintBottom_toBottomOf="@+id/paint_panel_ll_seeks"
+            app:layout_constraintLeft_toRightOf="@+id/paint_panel_ll_seeks"
             app:layout_constraintRight_toRightOf="parent">
 
             <TextView

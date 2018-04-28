@@ -30,20 +30,35 @@ public class PaintPanel extends LinearLayout{
     private TextView mAlphaText;
 
     private int mColor, mAlpha = 255;
-    private int penId, lineId, ovalId, eraserId, rectangleId;
+    private int mPenId, mLineId, mOvalId, mEraserId, mRectangleId;
 
     public PaintPanel(Context context) {
         super(context);
+        if (getOrientation() == HORIZONTAL){
+            inflate(getContext(), R.layout.paint_panel_horizontal, this);
+        } else {
+            inflate(getContext(), R.layout.paint_panel_vertical, this);
+        }
         init();
     }
 
     public PaintPanel(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        if (getOrientation() == HORIZONTAL){
+            inflate(getContext(), R.layout.paint_panel_horizontal, this);
+        } else {
+            inflate(getContext(), R.layout.paint_panel_vertical, this);
+        }
         init();
     }
 
     public PaintPanel(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        if (getOrientation() == HORIZONTAL){
+            inflate(getContext(), R.layout.paint_panel_horizontal, this);
+        } else {
+            inflate(getContext(), R.layout.paint_panel_vertical, this);
+        }
         init();
     }
 
@@ -52,7 +67,6 @@ public class PaintPanel extends LinearLayout{
     }
 
     private void init() {
-        inflate(getContext(), R.layout.paint_panel, this);
         Button undoBtn = findViewById(R.id.paint_panel_btn_undo);
         Button redoBtn = findViewById(R.id.paint_panel_btn_redo);
         Button clearBtn = findViewById(R.id.paint_panel_btn_clear);
@@ -120,21 +134,21 @@ public class PaintPanel extends LinearLayout{
             }
         });
 
-        rectangleId = R.id.paint_panel_paint_item_rectangle;
-        penId = R.id.paint_panel_paint_item_pen;
-        ovalId = R.id.paint_panel_paint_item_oval;
-        eraserId = R.id.paint_panel_paint_item_eraser;
-        lineId = R.id.paint_panel_paint_item_line;
+        mRectangleId = R.id.paint_panel_rbtn_rectangle;
+        mPenId = R.id.paint_panel_rbtn_pen;
+        mOvalId = R.id.paint_panel_rbtn_oval;
+        mEraserId = R.id.paint_panel_rbtn_eraser;
+        mLineId = R.id.paint_panel_rbtn_line;
 
-        mRedText = findViewById(R.id.paint_panel_r);
-        mGreenText = findViewById(R.id.paint_panel_g);
-        mBlueText = findViewById(R.id.paint_panel_b);
-        mAlphaText = findViewById(R.id.paint_panel_a);
-        final SeekBar redSeekBar = findViewById(R.id.paint_panel_seek_r);
-        final SeekBar greenSeekBar = findViewById(R.id.paint_panel_seek_g);
+        mRedText = findViewById(R.id.paint_panel_text_red);
+        mGreenText = findViewById(R.id.paint_panel_text_green);
+        mBlueText = findViewById(R.id.paint_panel_text_blue);
+        mAlphaText = findViewById(R.id.paint_panel_text_alpha);
+        final SeekBar redSeekBar = findViewById(R.id.paint_panel_seek_red);
+        final SeekBar greenSeekBar = findViewById(R.id.paint_panel_seek_green);
 
-        final SeekBar blueSeekBar = findViewById(R.id.paint_panel_seek_b);
-        final SeekBar alphaSeekBar = findViewById(R.id.paint_panel_seek_a);
+        final SeekBar blueSeekBar = findViewById(R.id.paint_panel_seek_blue);
+        final SeekBar alphaSeekBar = findViewById(R.id.paint_panel_seek_alpha);
         final FrameLayout colorFrame = findViewById(R.id.paint_panel_fl_color);
         final TextView colorText = findViewById(R.id.paint_panel_text_color);
         redSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -255,6 +269,7 @@ public class PaintPanel extends LinearLayout{
         frameLayout.setBackgroundColor(Color.parseColor(getTextFromRGB(r, g, b, mAlpha)));
     }
 
+    @NonNull
     private String getTextFromRGB(int r, int g, int b, int a){
         String alpha = Integer.toHexString(a);
         if (alpha.length() == 1){
@@ -276,15 +291,15 @@ public class PaintPanel extends LinearLayout{
     }
 
     private void modeFromCheckedItem(int id){
-        if (id == eraserId){
+        if (id == mEraserId){
             eraser();
-        } else if (id == penId){
+        } else if (id == mPenId){
             setDrawer(LightPaintView.DrawerMode.PEN);
-        } else if (id == lineId){
+        } else if (id == mLineId){
             setDrawer(LightPaintView.DrawerMode.LINE);
-        } else if (id == ovalId){
+        } else if (id == mOvalId){
             setDrawer(LightPaintView.DrawerMode.OVAL);
-        } else if (id == rectangleId){
+        } else if (id == mRectangleId){
             setDrawer(LightPaintView.DrawerMode.RECTANGLE);
         }
     }

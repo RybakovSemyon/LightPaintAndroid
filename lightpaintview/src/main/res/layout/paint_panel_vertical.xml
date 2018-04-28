@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:orientation="horizontal">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:id="@+id/paint_panel_cl_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <Button
+                    android:id="@+id/paint_panel_btn_undo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/selector_btn_undo"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/paint_panel_btn_redo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/selector_btn_redo"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/paint_panel_btn_clear"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/selector_btn_clear"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/paint_panel_btn_fill"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/selector_btn_background_fill"
+                    tools:ignore="ButtonStyle" />
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/paint_panel_rg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@android:color/white"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/paint_panel_cl_buttons"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent">
+
+
+                <RadioButton
+                    android:id="@+id/paint_panel_rbtn_pen"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/selector_rbtn_pen"
+                    android:button="@android:color/transparent"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/paint_panel_rbtn_eraser"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/selector_rbtn_eraser"
+                    android:button="@android:color/transparent" />
+
+                <RadioButton
+                    android:id="@+id/paint_panel_rbtn_line"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/selector_rbtn_line"
+                    android:button="@android:color/transparent" />
+
+                <RadioButton
+                    android:id="@+id/paint_panel_rbtn_oval"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/selector_rbtn_ellipse"
+                    android:button="@android:color/transparent" />
+
+                <RadioButton
+                    android:id="@+id/paint_panel_rbtn_rectangle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/selector_rbtn_rectangle"
+                    android:button="@android:color/transparent" />
+            </RadioGroup>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <SeekBar
+            android:id="@+id/paint_panel_seekbar_size"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:max="100"
+            android:progress="10"
+            app:layout_constraintEnd_toStartOf="@+id/paint_panel_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/paint_panel_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/paint_panel_seekbar_size"
+            app:layout_constraintBottom_toBottomOf="@+id/paint_panel_seekbar_size"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toEndOf="@+id/paint_panel_seekbar_size" />
+
+        <LinearLayout
+            android:id="@+id/paint_panel_ll_seeks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/paint_panel_seekbar_size"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/paint_panel_text_red"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_red"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <SeekBar
+                    android:id="@+id/paint_panel_seek_red"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:max="255"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/paint_panel_text_red" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/paint_panel_text_green"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_green"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <SeekBar
+                    android:id="@+id/paint_panel_seek_green"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/paint_panel_text_green"
+                    android:max="255"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/paint_panel_text_blue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_blue"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <SeekBar
+                    android:id="@+id/paint_panel_seek_blue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/paint_panel_text_blue"
+                    android:max="255"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/paint_panel_text_alpha"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/paint_panel_seek_alpha"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <SeekBar
+                    android:id="@+id/paint_panel_seek_alpha"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/paint_panel_text_alpha"
+                    android:max="255"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/paint_panel_fl_color"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toBottomOf="@+id/paint_panel_ll_seeks"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+                android:id="@+id/paint_panel_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="17sp"/>
+
+        </FrameLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
+
