@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LightPaintAndroid</string>
+    <string name="dialog_color_picker_title">Выберите цвет</string>
+</resources>

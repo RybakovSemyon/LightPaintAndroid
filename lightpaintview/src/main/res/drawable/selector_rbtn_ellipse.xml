@@ -1,0 +1,14 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:drawable="@drawable/ic_unselected_rbtn_oval"
+        android:state_checked="true"
+        android:state_pressed="true" />
+    <item
+        android:drawable="@drawable/ic_selected_rbtn_oval"
+        android:state_pressed="true" />
+    <item
+        android:drawable="@drawable/ic_selected_rbtn_oval"
+        android:state_checked="true" />
+    <item
+        android:drawable="@drawable/ic_unselected_rbtn_oval" />
+</selector>
