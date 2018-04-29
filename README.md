@@ -22,11 +22,6 @@ LightPaintAndroid - is a small library that allows you to embed LightPaintView a
 
 ## Using gradle
 ```gradle
-repositories {
-    maven {
-        url 'https://dl.bintray.com/rybakovs/maven/'
-    }
-}
 dependencies {
     implementation 'com.github.rybakovsemyon:lightpaintandroid:0.1.0'
 }
