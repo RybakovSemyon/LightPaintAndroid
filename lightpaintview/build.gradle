@@ -8,7 +8,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 2
-        versionName "0.1.0"
+        versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -33,11 +33,10 @@ dependencies {
 }
 
 publish {
-    groupId = 'com.github.RybakovSemyon'
-    artifactId = 'lightpaintview'
+    groupId = 'com.github.rybakovsemyon'
+    artifactId = 'lightpaintandroid'
     publishVersion = '0.1.0'
-    desc = 'Library that allows you to simply draw.'
+    desc = 'A small library, that allow you to use simple PaintView and control panel for it.'
     licences = ['Apache-2.0']
-    uploadName='LightPaintView'
-    website = 'https://github.com/RybakovSemyon/LightPaintAndroid.git'
+    website = 'https://github.com/RybakovSemyon/LightPaintAndroid'
 }

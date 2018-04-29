@@ -329,7 +329,6 @@ public class LightPaintView extends View {
         LightPaintViewState(LightPaintView object){
             width = object.getWidth();
             height = object.getHeight();
-            System.out.println(width + " " + height);
             paints = object.mPaints;
             paths = object.mPaths;
             baseColor = object.mBaseColor;
