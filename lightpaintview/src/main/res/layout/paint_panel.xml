@@ -126,8 +126,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:max="100"
-            android:progress="10"
+            android:max="99"
+            android:progress="9"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toStartOf="@+id/paint_panel_text_size"
             app:layout_constraintStart_toStartOf="parent"
@@ -264,7 +264,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/paint_panel_text_alpha"
-                    android:max="255"/>
+                    android:max="255"
+                    android:progress="255" />
                 
             </android.support.constraint.ConstraintLayout>
             

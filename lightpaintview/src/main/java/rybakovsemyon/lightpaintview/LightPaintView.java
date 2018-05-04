@@ -9,45 +9,37 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.MotionEvent;
 
-public class LightPaintView extends View {
+import static rybakovsemyon.lightpaintview.brushes.BrushesFactory.Mode;
+import static rybakovsemyon.lightpaintview.brushes.BrushesFactory.createBrushFromMode;
+import rybakovsemyon.lightpaintview.brushes.BrushesFactory;
+import rybakovsemyon.lightpaintview.brushes.CommonBrush;
 
-    enum DrawerMode {
-        PEN,
-        LINE,
-        RECTANGLE,
-        OVAL
-    }
+public class LightPaintView extends View {
 
     @Nullable
     private LightPaintViewState mLightPaintViewState;
     @NonNull
-    private List<Path> mPaths = new ArrayList<>();
-    @NonNull
-    private List<Paint> mPaints = new ArrayList<>();
-    @NonNull
-    private DrawerMode mDrawerMode = DrawerMode.PEN;
+    private List<CommonBrush> mBrushes = new ArrayList<>();
     @NonNull
     private Paint.Style mPaintStyle = Paint.Style.STROKE;
     @NonNull
     private Paint.Cap mLineCap = Paint.Cap.ROUND;
-
     private int mPaintStrokeColor = Color.BLACK;
     private int mPaintFillColor = Color.BLACK;
     private float mPaintStrokeWidth = 10F;
     private int mOpacity = 255;
     private float mBlur = 0F;
-    private boolean mIsDown = false;
     private float mStartX = 0F;
     private float mStartY = 0F;
-    private int mBaseColor = Color.WHITE;
+    private int mBaseColor = Color.TRANSPARENT;
     private int mHistoryPointer = 0;
+    private BrushesFactory.Mode mMode = Mode.PEN;
 
     public LightPaintView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -55,34 +47,28 @@ public class LightPaintView extends View {
     }
 
     public LightPaintView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.setup();
+        this(context, attrs, 0);
     }
 
     public LightPaintView(Context context) {
-        super(context);
-        this.setup();
+        this(context, null, 0);
     }
 
     private void setup() {
-        this.mPaths.add(new Path());
-        this.mPaints.add(this.createPaint());
+        this.mBrushes.add(createBrushFromMode(mMode, createPaint(), null));
         this.mHistoryPointer++;
     }
 
     private Paint createPaint() {
         Paint paint = new Paint();
-
         paint.setAntiAlias(true);
         paint.setStyle(this.mPaintStyle);
         paint.setStrokeWidth(this.mPaintStrokeWidth);
         paint.setStrokeCap(this.mLineCap);
         paint.setStrokeJoin(Paint.Join.MITER);
-
         paint.setColor(this.mPaintStrokeColor);
         paint.setShadowLayer(this.mBlur, 0F, 0F, this.mPaintStrokeColor);
         paint.setAlpha(this.mOpacity);
-
         return paint;
     }
 
@@ -98,88 +84,44 @@ public class LightPaintView extends View {
     }
 
     private void updateHistory(Path path) {
-        if (this.mHistoryPointer == this.mPaths.size()) {
-            this.mPaths.add(path);
-            this.mPaints.add(this.createPaint());
+        if (this.mHistoryPointer == this.mBrushes.size()) {
+            this.mBrushes.add(createBrushFromMode(mMode, createPaint(), path));
             this.mHistoryPointer++;
         } else {
-            this.mPaths.set(this.mHistoryPointer, path);
-            this.mPaints.set(this.mHistoryPointer, this.createPaint());
+            this.mBrushes.set(this.mHistoryPointer, createBrushFromMode(mMode, createPaint(), path));
             this.mHistoryPointer++;
-
-            for (int i = this.mHistoryPointer, size = this.mPaints.size(); i < size; i++) {
-                this.mPaths.remove(this.mHistoryPointer);
-                this.mPaints.remove(this.mHistoryPointer);
+            for (int i = this.mHistoryPointer, size = this.mBrushes.size(); i < size; i++) {
+                this.mBrushes.remove(this.mHistoryPointer);
             }
         }
     }
 
-    private Path getCurrentPath() {
-        return this.mPaths.get(this.mHistoryPointer - 1);
+    private CommonBrush getCurrentBrush() {
+        return this.mBrushes.get(this.mHistoryPointer - 1);
     }
 
     private void onActionDown(MotionEvent event) {
         this.updateHistory(this.createPath(event));
-        this.mIsDown = true;
     }
 
     private void onActionMove(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
-
-        if (!mIsDown) {
-            return;
-        }
-
-        Path path = this.getCurrentPath();
-
-        switch (this.mDrawerMode) {
-            case PEN :
-                path.lineTo(x, y);
-                break;
-            case LINE :
-                path.reset();
-                path.moveTo(this.mStartX, this.mStartY);
-                path.lineTo(x, y);
-                break;
-            case RECTANGLE :
-                path.reset();
-                if (y < mStartY + mPaintStrokeWidth)
-                    y = mStartY + mPaintStrokeWidth;
-
-                if (x < mStartX + mPaintStrokeWidth)
-                    x = mStartX + mPaintStrokeWidth;
-
-                path.addRect(this.mStartX, this.mStartY, x, y, Path.Direction.CW);
-                break;
-            case OVAL:
-                RectF rect = new RectF(this.mStartX, this.mStartY, x, y);
-                path.reset();
-                path.addOval(rect, Path.Direction.CCW);
-                break;
-            default :
-                break;
-        }
+        CommonBrush brush = getCurrentBrush();
+        brush.onActionMove(mStartX, mStartY, x, y);
     }
 
     private void onActionUp() {
-        if (mIsDown) {
-            this.mStartX = 0F;
-            this.mStartY = 0F;
-            this.mIsDown = false;
-        }
+        this.mStartX = 0F;
+        this.mStartY = 0F;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawColor(this.mBaseColor);
-
         for (int i = 0; i < this.mHistoryPointer; i++) {
-            Path path   = this.mPaths.get(i);
-            Paint paint = this.mPaints.get(i);
-
-            canvas.drawPath(path, paint);
+            mBrushes.get(i).onDraw(canvas);
         }
     }
 
@@ -206,13 +148,9 @@ public class LightPaintView extends View {
                 break;
         }
 
-        this.invalidate();
+        invalidate();
 
         return true;
-    }
-
-    void setDrawerMode(@NonNull DrawerMode drawerMode) {
-        this.mDrawerMode = drawerMode;
     }
 
     void undo() {
@@ -223,7 +161,7 @@ public class LightPaintView extends View {
     }
 
     void redo() {
-        if (this.mHistoryPointer < this.mPaths.size()) {
+        if (this.mHistoryPointer < this.mBrushes.size()) {
             this.mHistoryPointer++;
             this.invalidate();
         }
@@ -231,8 +169,7 @@ public class LightPaintView extends View {
 
     void clear() {
         mHistoryPointer = 0;
-        mPaints = new ArrayList<>();
-        mPaths = new ArrayList<>();
+        mBrushes = new ArrayList<>();
         setup();
         this.invalidate();
     }
@@ -262,6 +199,10 @@ public class LightPaintView extends View {
         }
     }
 
+    public void setMode(Mode mode) {
+        mMode = mode;
+    }
+
     @NonNull
     public LightPaintViewState getLightPaintViewState(){
         return new LightPaintViewState(this);
@@ -276,12 +217,10 @@ public class LightPaintView extends View {
     }
 
     private void setState(@NonNull LightPaintViewState object){
-        mPaths = object.paths;
-        mPaints = object.paints;
+        mBrushes = object.brushes;
+        mMode = object.mode;
         mBaseColor = object.baseColor;
         mHistoryPointer = object.historyPointer;
-        mDrawerMode = object.drawerMode;
-        mIsDown = object.isDown;
         mPaintStyle = object.paintStyle;
         mPaintStrokeColor = object.paintStrokeColor;
         mPaintFillColor = object.paintFillColor;
@@ -308,14 +247,10 @@ public class LightPaintView extends View {
 
     public static class LightPaintViewState {
 
-        private final int width;
-        private final int height;
-        private final List<Path> paths;
-        private final List<Paint> paints;
+        private final List<CommonBrush> brushes;
+        private final Mode mode;
         private final int baseColor;
         private final int historyPointer;
-        private final DrawerMode drawerMode;
-        private final boolean isDown;
         private final Paint.Style paintStyle;
         private final int paintStrokeColor;
         private final int paintFillColor;
@@ -327,14 +262,10 @@ public class LightPaintView extends View {
         private final float startY;
 
         LightPaintViewState(LightPaintView object){
-            width = object.getWidth();
-            height = object.getHeight();
-            paints = object.mPaints;
-            paths = object.mPaths;
+            mode = object.mMode;
+            brushes = object.mBrushes;
             baseColor = object.mBaseColor;
             historyPointer = object.mHistoryPointer;
-            drawerMode = object.mDrawerMode;
-            isDown = object.mIsDown;
             paintStyle = object.mPaintStyle;
             paintStrokeColor = object.mPaintStrokeColor;
             paintFillColor = object.mPaintFillColor;
@@ -344,74 +275,6 @@ public class LightPaintView extends View {
             lineCap = object.mLineCap;
             startX = object.mStartX;
             startY = object.mStartY;
-        }
-
-        public int getWidth() {
-            return width;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public List<Path> getPaths() {
-            return paths;
-        }
-
-        public List<Paint> getPaints() {
-            return paints;
-        }
-
-        public int getBaseColor() {
-            return baseColor;
-        }
-
-        public int getHistoryPointer() {
-            return historyPointer;
-        }
-
-        public DrawerMode getDrawerMode() {
-            return drawerMode;
-        }
-
-        public boolean isDown() {
-            return isDown;
-        }
-
-        public Paint.Style getPaintStyle() {
-            return paintStyle;
-        }
-
-        public int getPaintStrokeColor() {
-            return paintStrokeColor;
-        }
-
-        public int getPaintFillColor() {
-            return paintFillColor;
-        }
-
-        public float getPaintStrokeWidth() {
-            return paintStrokeWidth;
-        }
-
-        public int getOpacity() {
-            return opacity;
-        }
-
-        public float getBlur() {
-            return blur;
-        }
-
-        public Paint.Cap getLineCap() {
-            return lineCap;
-        }
-
-        public float getStartX() {
-            return startX;
-        }
-
-        public float getStartY() {
-            return startY;
         }
     }
 }
