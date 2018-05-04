@@ -15,7 +15,7 @@ LightPaintAndroid - is a small library that allows you to embed LightPaintView a
 <dependency>
   <groupId>com.github.rybakovsemyon</groupId>
   <artifactId>lightpaintandroid</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <type>pom</type>
 </dependency>
 ```
@@ -23,7 +23,7 @@ LightPaintAndroid - is a small library that allows you to embed LightPaintView a
 ## Using gradle
 ```gradle
 dependencies {
-    implementation 'com.github.rybakovsemyon:lightpaintandroid:0.1.0'
+    implementation 'com.github.rybakovsemyon:lightpaintandroid:0.1.1'
 }
 ```
 
@@ -40,8 +40,7 @@ dependencies {
    <rybakovsemyon.lightpaintview.PaintPanel
         android:id="@+id/paintPanel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"/>
+        android:layout_height="wrap_content"/>
 ```
 
 ### 2. Find views inside your java classes and attach LightPaintView to PaintPanel
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-### 3. If you want to preserve the state of your art when you rotate the screen or change the configuration, you must call the getLightPaintViewState() method and put it (for example)into your ViewModel/Presenter or Singleton/Repository class
+### 3. If you want to preserve the state of your art when you rotate the screen or change the configuration, you must call the getLightPaintViewState() method and put it (for example) into your ViewModel/Presenter or Singleton(anti pattern, don't do that)/Repository class
 ```java
  @Override
     protected void onCreate(Bundle savedInstanceState) {
